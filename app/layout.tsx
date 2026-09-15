@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans_Arabic, Plus_Jakarta_Sans } from "next/font/google";
+import Script from "next/script";
 import { LanguageProvider } from "../lib/i18n/LanguageProvider";
 import { SET_LANG_INLINE_SCRIPT } from "../lib/i18n/constants";
 import "./globals.css";
@@ -34,7 +35,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${plusJakarta.variable} ${ibmPlexArabic.variable} h-full antialiased`}
     >
       <head>
-        <script
+        <Script
+          id="set-lang"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: SET_LANG_INLINE_SCRIPT }}
         />
       </head>

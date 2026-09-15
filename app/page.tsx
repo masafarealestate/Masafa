@@ -7,13 +7,19 @@ import { WhyMasafa } from '../components/WhyMasafa'
 import { AgentsStrip } from '../components/AgentsStrip'
 import { CtaBand } from '../components/CtaBand'
 import { Footer } from '../components/Footer'
+import { StaffOnlyNotice } from '../components/StaffOnlyNotice'
 
-export default async function Home() {
-  const featured = await getProperties({ limit: 6 })
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}) {
+  const [featured, params] = await Promise.all([getProperties({ limit: 6 }), searchParams])
 
   return (
     <main className="min-h-screen bg-sand">
       <Header />
+      {params.notice === 'staff-only' && <StaffOnlyNotice />}
       <Hero />
       <StatsStrip />
       <FeaturedProperties properties={featured} />
