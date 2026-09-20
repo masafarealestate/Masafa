@@ -51,6 +51,9 @@ async function resolveSellerId(
   if (!form.newSeller.full_name.trim()) {
     return { sellerId: null, failed: false }
   }
+  if (!form.newSeller.phone.trim() || !form.newSeller.whatsapp.trim()) {
+    return { sellerId: null, failed: true }
+  }
 
   const { data: seller, error } = await supabase
     .from('sellers')

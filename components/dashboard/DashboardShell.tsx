@@ -17,7 +17,7 @@ const NAV_ITEMS: NavItem[] = [
   { href: '/dashboard', labelKey: 'overview', enabled: true },
   { href: '/dashboard/properties', labelKey: 'properties', enabled: true },
   { href: '/dashboard/properties/new', labelKey: 'addProperty', enabled: true },
-  { href: '/dashboard/sellers', labelKey: 'sellers', enabled: false },
+  { href: '/dashboard/sellers', labelKey: 'sellers', enabled: true },
   { href: '/dashboard/agents', labelKey: 'agents', enabled: false },
   { href: '/dashboard/leads', labelKey: 'leads', enabled: false },
 ]

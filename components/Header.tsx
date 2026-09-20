@@ -12,8 +12,8 @@ export function Header() {
     { key: 'buy', href: '/properties?purpose=sale', label: dict.nav.buy },
     { key: 'rent', href: '/properties?purpose=rent', label: dict.nav.rent },
     { key: 'commercial', href: '/properties?purpose=commercial', label: dict.nav.commercial },
-    { key: 'agents', href: '#', label: dict.nav.agents },
-    { key: 'about', href: '#', label: dict.nav.about },
+    { key: 'agents', href: '/agents', label: dict.nav.agents },
+    { key: 'about', href: '/about', label: dict.nav.about },
   ]
 
   return (

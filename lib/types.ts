@@ -48,3 +48,22 @@ export type Amenity = {
   name_en: string
   name_ar: string
 }
+
+/**
+ * `job_title_en` and `language` aren't confirmed columns on every deployment of
+ * `agents` yet — `getActiveAgents` fetches them defensively and falls back to the
+ * guaranteed columns if the query errors, so both stay optional here.
+ */
+export type PublicAgent = {
+  id: string
+  full_name: string
+  full_name_en: string
+  job_title: string | null
+  job_title_en?: string | null
+  language?: string | null
+  phone: string | null
+  whatsapp: string | null
+  photo_url: string | null
+}
+
+export type PublicAgentWithCount = PublicAgent & { listingCount: number }

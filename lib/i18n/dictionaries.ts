@@ -93,7 +93,7 @@ export interface Dictionary {
     contactHeading: string
     addressLine1: string
     addressLine2: string
-    companyLinks: string[]
+    companyLinks: { label: string; href: string }[]
     rights: (year: number) => string
   }
   propertyDetail: {
@@ -139,6 +139,57 @@ export interface Dictionary {
     location: {
       heading: string
       mapComingSoon: string
+    }
+  }
+  agentsPage: {
+    heading: string
+    subheading: string
+    empty: string
+    listings: (n: number) => string
+    whatsapp: string
+    call: string
+    profile: {
+      backLink: string
+      listingsHeading: (n: number) => string
+      listingsEmpty: string
+    }
+    notFound: {
+      heading: string
+      body: string
+      backLink: string
+    }
+  }
+  aboutPage: {
+    hero: {
+      heading: string
+      subheading: string
+    }
+    story: {
+      heading: string
+      body: string
+    }
+  }
+  contactPage: {
+    heading: string
+    subheading: string
+    infoHeading: string
+    addressLabel: string
+    address: string
+    phoneLabel: string
+    phone: string
+    emailLabel: string
+    whatsappButton: string
+    form: {
+      nameLabel: string
+      phoneLabel: string
+      emailLabel: string
+      messageLabel: string
+      messagePlaceholder: string
+      submit: string
+      submitting: string
+      success: string
+      error: string
+      validation: string
     }
   }
   auth: {
@@ -233,6 +284,78 @@ export interface Dictionary {
         backLink: string
       }
     }
+    sellers: {
+      heading: string
+      subheading: string
+      addButton: string
+      searchPlaceholder: string
+      resultCount: (n: number) => string
+      empty: string
+      filterAll: string
+      typeLabels: Record<SellerType, string>
+      table: {
+        name: string
+        type: string
+        phone: string
+        whatsapp: string
+        email: string
+        properties: string
+        actions: string
+      }
+      actions: {
+        view: string
+        edit: string
+        delete: string
+      }
+      confirmDelete: {
+        title: string
+        bodySafe: string
+        bodyWithProperties: (n: number) => string
+        confirm: string
+        cancel: string
+      }
+      feedback: {
+        deleteSuccess: string
+        deleteError: string
+      }
+      form: {
+        addHeading: string
+        editHeading: string
+        subheading: string
+        fullNameLabel: string
+        phoneLabel: string
+        phonePlaceholder: string
+        whatsappLabel: string
+        whatsappPlaceholder: string
+        whatsappSameAsPhoneLabel: string
+        emailLabel: string
+        typeLabel: string
+        typeOptions: Record<SellerType, string>
+        notesLabel: string
+        cancel: string
+        save: string
+        saving: string
+        errors: {
+          nameRequired: string
+          phoneRequired: string
+          whatsappRequired: string
+          saveFailed: string
+        }
+      }
+      detail: {
+        backLink: string
+        notesHeading: string
+        editButton: string
+        deleteButton: string
+        propertiesHeading: (n: number) => string
+        propertiesEmpty: string
+      }
+      notFound: {
+        heading: string
+        body: string
+        backLink: string
+      }
+    }
     propertyWizard: {
       pageTitle: string
       stepIndicator: (current: number, total: number) => string
@@ -258,12 +381,16 @@ export interface Dictionary {
         selectPlaceholder: string
         fullNameLabel: string
         phoneLabel: string
+        phonePlaceholder: string
         whatsappLabel: string
+        whatsappPlaceholder: string
+        whatsappSameAsPhoneLabel: string
         emailLabel: string
         typeLabel: string
         typeOptions: Record<SellerType, string>
         notesLabel: string
         showOnWebsiteLabel: string
+        requiredError: string
       }
       agent: {
         heading: string
@@ -489,7 +616,12 @@ export const dictionaries: Record<Lang, Dictionary> = {
       contactHeading: 'Contact',
       addressLine1: 'Manama, Bahrain',
       addressLine2: 'hello@masafa.bh',
-      companyLinks: ['About', 'Careers', 'Blog', 'Contact'],
+      companyLinks: [
+        { label: 'About', href: '/about' },
+        { label: 'Careers', href: '#' },
+        { label: 'Blog', href: '#' },
+        { label: 'Contact', href: '/contact' },
+      ],
       rights: (year) => `© ${year} Masafa. All rights reserved.`,
     },
     propertyDetail: {
@@ -535,6 +667,60 @@ export const dictionaries: Record<Lang, Dictionary> = {
       location: {
         heading: 'Location',
         mapComingSoon: 'Interactive map coming soon',
+      },
+    },
+    agentsPage: {
+      heading: 'Our Agents',
+      subheading: 'Meet the people behind every Masafa listing — verified, licensed, and ready to help.',
+      empty: 'No agents to show right now.',
+      listings: (n) => `${n} active listing${n === 1 ? '' : 's'}`,
+      whatsapp: 'WhatsApp',
+      call: 'Call',
+      profile: {
+        backLink: 'Back to agents',
+        listingsHeading: (n) => `Listings (${n})`,
+        listingsEmpty: 'This agent has no active listings right now.',
+      },
+      notFound: {
+        heading: 'Agent not found',
+        body: 'This agent may no longer be active, or the link is incorrect.',
+        backLink: 'Back to agents',
+      },
+    },
+    aboutPage: {
+      hero: {
+        heading: 'About Masafa',
+        subheading: 'A calmer way to buy, sell, and rent property in Bahrain.',
+      },
+      story: {
+        heading: 'Our story',
+        // PLACEHOLDER COPY — Youssef, please replace this paragraph with Masafa's real company story/mission.
+        body: 'Masafa was founded to bring clarity to the Bahrain property market. What started as a small team of agents frustrated by outdated listings and opaque deals has grown into a platform built on verified information and straightforward service. We believe finding a home or an investment shouldn’t require guesswork — so every listing on Masafa is checked, every agent is vetted, and every step of the process is designed to be transparent from the first inquiry to the final handover.',
+      },
+    },
+    contactPage: {
+      heading: 'Contact Us',
+      subheading: 'Have a question about a listing, or want to talk to our team? Send us a message and we’ll get back to you shortly.',
+      infoHeading: 'Get in touch',
+      addressLabel: 'Address',
+      // PLACEHOLDER — replace with the real office address once confirmed.
+      address: 'Manama, Bahrain',
+      phoneLabel: 'Phone',
+      // PLACEHOLDER — replace with the real office phone number.
+      phone: '+973 1700 0000',
+      emailLabel: 'Email',
+      whatsappButton: 'Chat with us on WhatsApp',
+      form: {
+        nameLabel: 'Full name',
+        phoneLabel: 'Phone',
+        emailLabel: 'Email',
+        messageLabel: 'Message',
+        messagePlaceholder: 'Tell us how we can help…',
+        submit: 'Send message',
+        submitting: 'Sending…',
+        success: 'Thanks! Your message has been sent — our team will be in touch shortly.',
+        error: 'We couldn’t send your message. Please try again in a moment.',
+        validation: 'Please add your name, a message, and a phone number or email so we can reach you.',
       },
     },
     auth: {
@@ -640,6 +826,89 @@ export const dictionaries: Record<Lang, Dictionary> = {
           backLink: 'Back to properties',
         },
       },
+      sellers: {
+        heading: 'Sellers',
+        subheading: 'Manage property owners, companies, developers, and brokers.',
+        addButton: '+ Add Seller',
+        searchPlaceholder: 'Search by name or phone',
+        resultCount: (n) => `${n} seller${n === 1 ? '' : 's'}`,
+        empty: 'No sellers match your filters.',
+        filterAll: 'All',
+        typeLabels: {
+          owner: 'Owner',
+          company: 'Company',
+          developer: 'Developer',
+          broker: 'Broker',
+        },
+        table: {
+          name: 'Name',
+          type: 'Type',
+          phone: 'Phone',
+          whatsapp: 'WhatsApp',
+          email: 'Email',
+          properties: 'Properties',
+          actions: 'Actions',
+        },
+        actions: {
+          view: 'View',
+          edit: 'Edit',
+          delete: 'Delete',
+        },
+        confirmDelete: {
+          title: 'Delete this seller?',
+          bodySafe: 'Are you sure? This can’t be undone.',
+          bodyWithProperties: (n) =>
+            `This seller has ${n} linked propert${n === 1 ? 'y' : 'ies'}. Deleting them won’t delete those properties — they’ll just be unlinked from this seller. This can’t be undone.`,
+          confirm: 'Delete',
+          cancel: 'Cancel',
+        },
+        feedback: {
+          deleteSuccess: 'Seller deleted.',
+          deleteError: 'We couldn’t delete this seller. You may not have permission.',
+        },
+        form: {
+          addHeading: 'Add Seller',
+          editHeading: 'Edit Seller',
+          subheading: 'Sellers are internal records — only the name is ever shown publicly, and only when enabled on a listing.',
+          fullNameLabel: 'Full name',
+          phoneLabel: 'Phone',
+          phonePlaceholder: '+973 3600 0000',
+          whatsappLabel: 'WhatsApp',
+          whatsappPlaceholder: '+973 3600 0000',
+          whatsappSameAsPhoneLabel: 'WhatsApp same as phone',
+          emailLabel: 'Email',
+          typeLabel: 'Seller type',
+          typeOptions: {
+            owner: 'Owner',
+            company: 'Company',
+            developer: 'Developer',
+            broker: 'Broker',
+          },
+          notesLabel: 'Internal notes',
+          cancel: 'Cancel',
+          save: 'Save',
+          saving: 'Saving…',
+          errors: {
+            nameRequired: 'Full name is required.',
+            phoneRequired: 'Phone number is required.',
+            whatsappRequired: 'WhatsApp number is required.',
+            saveFailed: 'We couldn’t save this seller. Please check the details and try again.',
+          },
+        },
+        detail: {
+          backLink: 'Back to sellers',
+          notesHeading: 'Internal notes',
+          editButton: 'Edit',
+          deleteButton: 'Delete',
+          propertiesHeading: (n) => `Linked properties (${n})`,
+          propertiesEmpty: 'No properties are linked to this seller yet.',
+        },
+        notFound: {
+          heading: 'Seller not found',
+          body: 'This seller may have been deleted, or the link is incorrect.',
+          backLink: 'Back to sellers',
+        },
+      },
       propertyWizard: {
         pageTitle: 'Add Property',
         stepIndicator: (current, total) => `Step ${current} of ${total}`,
@@ -665,7 +934,10 @@ export const dictionaries: Record<Lang, Dictionary> = {
           selectPlaceholder: 'No seller / choose later',
           fullNameLabel: 'Full name',
           phoneLabel: 'Phone',
+          phonePlaceholder: '+973 3600 0000',
           whatsappLabel: 'WhatsApp',
+          whatsappPlaceholder: '+973 3600 0000',
+          whatsappSameAsPhoneLabel: 'WhatsApp same as phone',
           emailLabel: 'Email',
           typeLabel: 'Seller type',
           typeOptions: {
@@ -676,6 +948,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
           },
           notesLabel: 'Internal notes',
           showOnWebsiteLabel: 'Show seller on website',
+          requiredError: 'Full name, phone, and WhatsApp are required to add a new seller.',
         },
         agent: {
           heading: 'Assigned agent',
@@ -908,7 +1181,12 @@ export const dictionaries: Record<Lang, Dictionary> = {
       contactHeading: 'تواصل معنا',
       addressLine1: 'المنامة، البحرين',
       addressLine2: 'hello@masafa.bh',
-      companyLinks: ['من نحن', 'وظائف', 'المدونة', 'تواصل معنا'],
+      companyLinks: [
+        { label: 'من نحن', href: '/about' },
+        { label: 'وظائف', href: '#' },
+        { label: 'المدونة', href: '#' },
+        { label: 'تواصل معنا', href: '/contact' },
+      ],
       rights: (year) => `© ${year} مسافة. جميع الحقوق محفوظة.`,
     },
     propertyDetail: {
@@ -954,6 +1232,60 @@ export const dictionaries: Record<Lang, Dictionary> = {
       location: {
         heading: 'الموقع',
         mapComingSoon: 'الخريطة التفاعلية قريبًا',
+      },
+    },
+    agentsPage: {
+      heading: 'وسطاؤنا',
+      subheading: 'تعرّف على الفريق وراء كل إعلان في مسافة — موثّقون ومرخّصون وجاهزون للمساعدة.',
+      empty: 'لا يوجد وسطاء لعرضهم حاليًا.',
+      listings: (n) => `${n} إعلان نشط`,
+      whatsapp: 'واتساب',
+      call: 'اتصال',
+      profile: {
+        backLink: 'العودة إلى الوسطاء',
+        listingsHeading: (n) => `الإعلانات (${n})`,
+        listingsEmpty: 'لا توجد إعلانات نشطة لهذا الوسيط حاليًا.',
+      },
+      notFound: {
+        heading: 'الوسيط غير موجود',
+        body: 'ربما لم يعد هذا الوسيط نشطًا، أو أن الرابط غير صحيح.',
+        backLink: 'العودة إلى الوسطاء',
+      },
+    },
+    aboutPage: {
+      hero: {
+        heading: 'عن مسافة',
+        subheading: 'طريقة أكثر هدوءًا لبيع وشراء وإيجار العقارات في البحرين.',
+      },
+      story: {
+        heading: 'قصتنا',
+        // نص مؤقت (PLACEHOLDER) — يستبدله يوسف بالقصة/الرسالة الحقيقية للشركة.
+        body: 'تأسست مسافة لتحقيق الوضوح في سوق العقارات البحريني. بدأت كفريق صغير من الوسطاء الذين شعروا بالإحباط من الإعلانات القديمة والصفقات غير الشفافة، وتطورت لتصبح منصة قائمة على معلومات موثّقة وخدمة واضحة. نؤمن بأن البحث عن منزل أو استثمار لا يجب أن يكون تخمينًا — لذلك كل إعلان في مسافة يُراجَع، وكل وسيط يُتحقق منه، وكل خطوة في العملية مصممة لتكون شفافة من أول استفسار وحتى التسليم النهائي.',
+      },
+    },
+    contactPage: {
+      heading: 'تواصل معنا',
+      subheading: 'لديك سؤال حول إعلان، أو تريد التحدث مع فريقنا؟ أرسل لنا رسالة وسنعاود التواصل معك قريبًا.',
+      infoHeading: 'تواصل معنا',
+      addressLabel: 'العنوان',
+      // نص مؤقت (PLACEHOLDER) — يُستبدل بعنوان المكتب الحقيقي عند تأكيده.
+      address: 'المنامة، البحرين',
+      phoneLabel: 'الهاتف',
+      // نص مؤقت (PLACEHOLDER) — يُستبدل برقم هاتف المكتب الحقيقي.
+      phone: '+973 1700 0000',
+      emailLabel: 'البريد الإلكتروني',
+      whatsappButton: 'تواصل معنا عبر واتساب',
+      form: {
+        nameLabel: 'الاسم الكامل',
+        phoneLabel: 'الهاتف',
+        emailLabel: 'البريد الإلكتروني',
+        messageLabel: 'الرسالة',
+        messagePlaceholder: 'أخبرنا كيف يمكننا مساعدتك…',
+        submit: 'إرسال الرسالة',
+        submitting: 'جارِ الإرسال…',
+        success: 'شكرًا لك! تم إرسال رسالتك — سيتواصل معك فريقنا قريبًا.',
+        error: 'تعذّر إرسال رسالتك. الرجاء المحاولة مرة أخرى بعد قليل.',
+        validation: 'الرجاء إضافة اسمك ورسالتك ورقم هاتف أو بريد إلكتروني للتواصل معك.',
       },
     },
     auth: {
@@ -1059,6 +1391,89 @@ export const dictionaries: Record<Lang, Dictionary> = {
           backLink: 'العودة إلى العقارات',
         },
       },
+      sellers: {
+        heading: 'البائعون',
+        subheading: 'إدارة الملاك والشركات والمطوّرين والوسطاء.',
+        addButton: '+ إضافة بائع',
+        searchPlaceholder: 'ابحث بالاسم أو الهاتف',
+        resultCount: (n) => `${n} بائع`,
+        empty: 'لا يوجد بائعون مطابقون للفلاتر.',
+        filterAll: 'الكل',
+        typeLabels: {
+          owner: 'مالك',
+          company: 'شركة',
+          developer: 'مطوّر',
+          broker: 'وسيط',
+        },
+        table: {
+          name: 'الاسم',
+          type: 'النوع',
+          phone: 'الهاتف',
+          whatsapp: 'واتساب',
+          email: 'البريد الإلكتروني',
+          properties: 'العقارات',
+          actions: 'الإجراءات',
+        },
+        actions: {
+          view: 'عرض',
+          edit: 'تعديل',
+          delete: 'حذف',
+        },
+        confirmDelete: {
+          title: 'حذف هذا البائع؟',
+          bodySafe: 'هل أنت متأكد؟ لا يمكن التراجع عن هذا الإجراء.',
+          bodyWithProperties: (n) =>
+            `يملك هذا البائع ${n} عقارًا مرتبطًا به. حذفه لن يحذف هذه العقارات — سيتم فقط إلغاء ارتباطها بهذا البائع. لا يمكن التراجع عن هذا الإجراء.`,
+          confirm: 'حذف',
+          cancel: 'إلغاء',
+        },
+        feedback: {
+          deleteSuccess: 'تم حذف البائع.',
+          deleteError: 'تعذّر حذف هذا البائع. قد لا تملك الصلاحية اللازمة.',
+        },
+        form: {
+          addHeading: 'إضافة بائع',
+          editHeading: 'تعديل البائع',
+          subheading: 'بيانات البائعين داخلية — يظهر الاسم فقط للعامة، وفقط عند تفعيل ذلك في إعلان معين.',
+          fullNameLabel: 'الاسم الكامل',
+          phoneLabel: 'الهاتف',
+          phonePlaceholder: '+973 3600 0000',
+          whatsappLabel: 'واتساب',
+          whatsappPlaceholder: '+973 3600 0000',
+          whatsappSameAsPhoneLabel: 'واتساب نفس رقم الجوال',
+          emailLabel: 'البريد الإلكتروني',
+          typeLabel: 'نوع البائع',
+          typeOptions: {
+            owner: 'مالك',
+            company: 'شركة',
+            developer: 'مطوّر',
+            broker: 'وسيط',
+          },
+          notesLabel: 'ملاحظات داخلية',
+          cancel: 'إلغاء',
+          save: 'حفظ',
+          saving: 'جارِ الحفظ…',
+          errors: {
+            nameRequired: 'الاسم الكامل مطلوب.',
+            phoneRequired: 'رقم الهاتف مطلوب.',
+            whatsappRequired: 'رقم واتساب مطلوب.',
+            saveFailed: 'تعذّر حفظ هذا البائع. الرجاء التحقق من البيانات والمحاولة مرة أخرى.',
+          },
+        },
+        detail: {
+          backLink: 'العودة إلى البائعين',
+          notesHeading: 'ملاحظات داخلية',
+          editButton: 'تعديل',
+          deleteButton: 'حذف',
+          propertiesHeading: (n) => `العقارات المرتبطة (${n})`,
+          propertiesEmpty: 'لا توجد عقارات مرتبطة بهذا البائع بعد.',
+        },
+        notFound: {
+          heading: 'البائع غير موجود',
+          body: 'ربما تم حذف هذا البائع، أو أن الرابط غير صحيح.',
+          backLink: 'العودة إلى البائعين',
+        },
+      },
       propertyWizard: {
         pageTitle: 'إضافة عقار',
         stepIndicator: (current, total) => `الخطوة ${current} من ${total}`,
@@ -1084,7 +1499,10 @@ export const dictionaries: Record<Lang, Dictionary> = {
           selectPlaceholder: 'بدون بائع / اختيار لاحقًا',
           fullNameLabel: 'الاسم الكامل',
           phoneLabel: 'الهاتف',
+          phonePlaceholder: '+973 3600 0000',
           whatsappLabel: 'واتساب',
+          whatsappPlaceholder: '+973 3600 0000',
+          whatsappSameAsPhoneLabel: 'واتساب نفس رقم الجوال',
           emailLabel: 'البريد الإلكتروني',
           typeLabel: 'نوع البائع',
           typeOptions: {
@@ -1095,6 +1513,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
           },
           notesLabel: 'ملاحظات داخلية',
           showOnWebsiteLabel: 'إظهار البائع على الموقع',
+          requiredError: 'الاسم الكامل والهاتف وواتساب مطلوبة لإضافة بائع جديد.',
         },
         agent: {
           heading: 'الوسيط المسؤول',

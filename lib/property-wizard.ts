@@ -1,15 +1,9 @@
 import { BAHRAIN_GOVERNORATES, getAreasForGovernorate } from './bahrain-locations'
-import type { ConditionOption, FurnishingOption, PaymentMethodOption, SellerType } from './property-wizard-options'
+import type { ConditionOption, FurnishingOption, PaymentMethodOption } from './property-wizard-options'
 import type { StaffProperty } from './dashboard-properties'
+import { emptySellerFieldsValue, type SellerFieldsValue } from './seller-fields'
 
-export type NewSellerInput = {
-  full_name: string
-  phone: string
-  whatsapp: string
-  email: string
-  type: SellerType
-  internal_notes: string
-}
+export type NewSellerInput = SellerFieldsValue
 
 export type MediaType = 'photo' | 'youtube' | 'virtual_tour' | 'tour_360'
 
@@ -27,6 +21,7 @@ export type PropertyFormState = {
   sellerMode: 'existing' | 'new'
   sellerId: string
   newSeller: NewSellerInput
+  newSellerWhatsappSameAsPhone: boolean
   showSellerOnWebsite: boolean
   agentId: string | null
   governorateKey: string
@@ -74,7 +69,8 @@ export function createEmptyPropertyForm(): PropertyFormState {
     propertyTypeId: null,
     sellerMode: 'existing',
     sellerId: '',
-    newSeller: { full_name: '', phone: '', whatsapp: '', email: '', type: 'owner', internal_notes: '' },
+    newSeller: emptySellerFieldsValue(),
+    newSellerWhatsappSameAsPhone: true,
     showSellerOnWebsite: false,
     agentId: null,
     governorateKey: '',

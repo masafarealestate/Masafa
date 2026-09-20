@@ -5,6 +5,7 @@ import { useState, useTransition } from 'react'
 import { createProperty, updateProperty } from '../../../app/dashboard/properties/actions'
 import { useLanguage } from '../../../lib/i18n/LanguageProvider'
 import { createEmptyPropertyForm, type PropertyFormState } from '../../../lib/property-wizard'
+import { isSellerFieldsValid } from '../../../lib/seller-fields'
 import type { Amenity } from '../../../lib/types'
 import { AgentStep, type AgentOption } from './AgentStep'
 import { AmenitiesStep } from './AmenitiesStep'
@@ -28,6 +29,8 @@ function isStepValid(step: number, form: PropertyFormState): boolean {
       return form.purpose !== null
     case 2:
       return form.propertyTypeId !== null
+    case 3:
+      return form.sellerMode !== 'new' || isSellerFieldsValid(form.newSeller)
     case 4:
       return form.agentId !== null
     default:
@@ -96,6 +99,10 @@ export function PropertyWizard({
       setSaveError(t.feedback.validationError)
       return
     }
+    if (form.sellerMode === 'new' && !isSellerFieldsValid(form.newSeller)) {
+      setSaveError(t.feedback.validationError)
+      return
+    }
     setSaveError(null)
     setSaveNotice(null)
     startTransition(async () => {
@@ -148,7 +155,9 @@ export function PropertyWizard({
         )}
         {step === 12 && <SaveStep t={t} pending={isPending} onSave={handleSave} />}
 
-        {blocked && <p className="mt-4 text-sm text-red-600">{t.requiredHint}</p>}
+        {blocked && (
+          <p className="mt-4 text-sm text-red-600">{step === 3 && form.sellerMode === 'new' ? t.seller.requiredError : t.requiredHint}</p>
+        )}
         {saveError && <p className="mt-4 text-sm text-red-600">{saveError}</p>}
         {saveNotice && <p className="mt-4 text-sm text-amber-700">{saveNotice}</p>}
       </div>

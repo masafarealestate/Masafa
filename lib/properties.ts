@@ -4,7 +4,7 @@ import type { PropertyWithImage } from '../components/PropertyCard'
 import { BAHRAIN_GOVERNORATES, getAreasForGovernorate } from './bahrain-locations'
 import { COMMERCIAL_TYPE_SLUGS, type PropertyFilters } from './property-filters'
 
-async function attachPrimaryImages(properties: PropertyPublic[]): Promise<PropertyWithImage[]> {
+export async function attachPrimaryImages(properties: PropertyPublic[]): Promise<PropertyWithImage[]> {
   if (properties.length === 0) return []
 
   const ids = properties.map((p) => p.id)

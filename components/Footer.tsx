@@ -41,10 +41,10 @@ export function Footer() {
           <div>
             <div className="text-sm font-semibold text-white">{dict.footer.companyHeading}</div>
             <ul className="mt-3 flex flex-col gap-2">
-              {dict.footer.companyLinks.map((label) => (
-                <li key={label}>
-                  <Link href="#" className="text-sm text-white/65 transition-colors hover:text-white">
-                    {label}
+              {dict.footer.companyLinks.map((item) => (
+                <li key={item.label}>
+                  <Link href={item.href} className="text-sm text-white/65 transition-colors hover:text-white">
+                    {item.label}
                   </Link>
                 </li>
               ))}

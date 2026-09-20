@@ -1,8 +1,7 @@
 import { FieldSelect } from '../../FieldSelect'
+import { SellerFormFields } from '../SellerFormFields'
 import type { Dictionary } from '../../../lib/i18n/dictionaries'
 import type { PropertyFormState } from '../../../lib/property-wizard'
-import { SELLER_TYPES } from '../../../lib/property-wizard-options'
-import { inputClass, labelClass, textareaClass } from './fieldStyles'
 
 export type SellerOption = { id: string; full_name: string }
 
@@ -46,58 +45,14 @@ export function SellerStep({
           />
         </div>
       ) : (
-        <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <label className={labelClass}>
-            {t.seller.fullNameLabel}
-            <input
-              type="text"
-              value={form.newSeller.full_name}
-              onChange={(e) => onChange({ newSeller: { ...form.newSeller, full_name: e.target.value } })}
-              className={inputClass}
-            />
-          </label>
-          <label className={labelClass}>
-            {t.seller.phoneLabel}
-            <input
-              type="tel"
-              value={form.newSeller.phone}
-              onChange={(e) => onChange({ newSeller: { ...form.newSeller, phone: e.target.value } })}
-              className={inputClass}
-            />
-          </label>
-          <label className={labelClass}>
-            {t.seller.whatsappLabel}
-            <input
-              type="tel"
-              value={form.newSeller.whatsapp}
-              onChange={(e) => onChange({ newSeller: { ...form.newSeller, whatsapp: e.target.value } })}
-              className={inputClass}
-            />
-          </label>
-          <label className={labelClass}>
-            {t.seller.emailLabel}
-            <input
-              type="email"
-              value={form.newSeller.email}
-              onChange={(e) => onChange({ newSeller: { ...form.newSeller, email: e.target.value } })}
-              className={inputClass}
-            />
-          </label>
-          <FieldSelect
-            label={t.seller.typeLabel}
-            value={form.newSeller.type}
-            onChange={(value) => onChange({ newSeller: { ...form.newSeller, type: value as PropertyFormState['newSeller']['type'] } })}
-            options={SELLER_TYPES.map((value) => ({ value, label: t.seller.typeOptions[value] }))}
+        <div className="mt-5">
+          <SellerFormFields
+            value={form.newSeller}
+            onChange={(patch) => onChange({ newSeller: { ...form.newSeller, ...patch } })}
+            sameAsPhone={form.newSellerWhatsappSameAsPhone}
+            onSameAsPhoneChange={(checked) => onChange({ newSellerWhatsappSameAsPhone: checked })}
+            labels={t.seller}
           />
-          <label className={`${labelClass} sm:col-span-2`}>
-            {t.seller.notesLabel}
-            <textarea
-              rows={2}
-              value={form.newSeller.internal_notes}
-              onChange={(e) => onChange({ newSeller: { ...form.newSeller, internal_notes: e.target.value } })}
-              className={textareaClass}
-            />
-          </label>
         </div>
       )}
 
